@@ -1,5 +1,8 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import HomeView from '../views/HomeView.vue'
+import MeView from '../views/MeView.vue'
+import MyCardsView from '../views/MyCardsView.vue'
+import PurchaseView from '../views/PurchaseView.vue' 
 
 const routes = [
   {
@@ -16,6 +19,17 @@ const routes = [
     path: '/signup',
     name: 'signup',
     component: () => import('../views/SignupView.vue')
+  },
+  { path: '/me', name: 'me', component: MeView },
+  {
+    path: '/my-cards',
+    name: 'my-cards',
+    component: MyCardsView
+  },
+  {
+    path: '/purchase',  // Définir la route pour la page "Faire des achats"
+    name: 'purchase',
+    component: PurchaseView  // Associe la vue PurchaseView à cette route
   }
 ]
 

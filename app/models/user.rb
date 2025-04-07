@@ -14,5 +14,6 @@ class User < ApplicationRecord
     def set_default_balance
       self.balance ||= 0.0
     end
+    has_many :cards
   end
   

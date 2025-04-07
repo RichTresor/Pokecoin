@@ -1,9 +1,12 @@
-# This file should ensure the existence of records required to run the application in every environment (production,
-# development, test). The code here should be idempotent so that it can be executed at any point in every environment.
-# The data can then be loaded with the bin/rails db:seed command (or created alongside the database with db:setup).
-#
-# Example:
-#
-#   ["Action", "Comedy", "Drama", "Horror"].each do |genre_name|
-#     MovieGenre.find_or_create_by!(name: genre_name)
-#   end
+10.times do |i|
+    card = Card.create!(
+      name: "Carte Pokémon ##{i + 1}",
+      rarity: ["Commun", "Rare", "Épique", "Légendaire"].sample,  # La rareté choisie aléatoirement
+      image_url: "https://assets.pokemon.com/assets/cms2/img/pokedex/full/#{(i + 1).to_s.rjust(3, '0')}.png",  # Image Pokémon générique
+      last_price: [10.0, 20.0, 50.0, 100.0].sample,  # Le prix est choisi aléatoirement
+      state: ["non à vendre", "à vendre"].sample,  # Etat de la carte, soit "à vendre" ou "non à vendre"
+      user_id: nil  # Aucun utilisateur n'est assigné par défaut (carte sans propriétaire)
+    )
+    
+    puts "Carte Pokémon ##{i + 1} ajoutée !"
+  end
