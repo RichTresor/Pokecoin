@@ -1,0 +1,37 @@
+services:
+  # Service Backend Rails
+  - type: web
+    name: pokecoin-api
+    env: ruby
+    buildCommand: "bundle install && RAILS_ENV=production rake db:migrate && rake assets:precompile"
+    startCommand: "rails s -b '0.0.0.0'"
+    branch: main
+    envVars:
+      - key: DATABASE_URL
+        value: ${DATABASE_URL}  # Définir la variable DATABASE_URL dans Render
+      - key: SECRET_KEY_BASE
+        value: ${SECRET_KEY_BASE}  # Définir la variable SECRET_KEY_BASE dans Render
+    plan: free
+
+  # Service Frontend Vue.js
+  - type: web
+    name: pokecoin-frontend
+    env: node
+    buildCommand: "npm install && npm run build"
+    startCommand: "npm run preview"
+    branch: main
+    envVars:
+      - key: VITE_API_URL
+        value: ${VITE_API_URL}  # Définir l'URL de l'API backend dans Render
+    plan: free
+
+  # Service Base de données PostgreSQL
+  - type: database
+    name: pokecoin-db
+    databaseType: postgres
+    plan: free
+    envVars:
+      - key: POSTGRES_PASSWORD
+        value: ${POSTGRES_PASSWORD}  # Définir le mot de passe PostgreSQL dans Render
+    regions:
+      - oregon
