@@ -85,8 +85,8 @@ production:
   primary: &primary_production
     <<: *default
     database: pokecoin_api_production
-    username: pokecoin_api
-    password: <%= ENV["POKECOIN_API_DATABASE_PASSWORD"] %>
+    username: postgres
+    password: postgres
   cache:
     <<: *primary_production
     database: pokecoin_api_production_cache

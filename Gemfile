@@ -11,6 +11,7 @@ gem "puma", ">= 5.0"
 gem 'jwt'
 gem 'rack-cors'
 
+gem 'sprockets-rails', '~> 3.0'
 
 
 # Use Active Model has_secure_password [https://guides.rubyonrails.org/active_model_basics.html#securepassword]
