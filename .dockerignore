@@ -46,6 +46,7 @@
 
 # Ignore Node.js files
 node_modules
+package-lock.json
 npm-debug.log
 dist
 .DS_Store

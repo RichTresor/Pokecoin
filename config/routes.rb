@@ -1,4 +1,10 @@
 Rails.application.routes.draw do
+  get "home/index"
+  
+  root "home#index"
+  resources :users
+  resources :cards
+  resources :transactions
   post '/login', to: 'auth#login'
   post '/signup', to: 'auth#signup'
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
