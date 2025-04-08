@@ -1,6 +1,28 @@
 class AuthController < ApplicationController
-  before_action :authenticate_user!
+  include Authentication  # Inclure le module d'authentification
 
+  before_action :authenticate_user!
+  skip_before_action :authenticate_user!, only: [:login, :signup]
+
+  def authenticate_user!
+    token = request.headers['Authorization']&.split(' ')&.last  # Récupère le token d'authentification
+    if token
+      begin
+        decoded_token = JWT.decode(token, Rails.application.config.jwt_secret, true, { algorithm: 'HS256' }).first
+        user_id = decoded_token['user_id']
+        @current_user = User.find(user_id)
+      rescue JWT::DecodeError => e
+        Rails.logger.error "Erreur de décodage du token : #{e.message}"
+        render json: { error: 'Invalid token' }, status: :unauthorized
+      rescue ActiveRecord::RecordNotFound => e
+        Rails.logger.error "Utilisateur non trouvé pour le token : #{e.message}"
+        render json: { error: 'User not found' }, status: :unauthorized
+      end
+    else
+      render json: { error: 'Unauthorized: Missing token' }, status: :unauthorized
+    end
+  end
+  
   def index
     # Récupérer les transactions liées à l'utilisateur
     transactions = Transaction.where('buyer_id = ? OR seller_id = ?', current_user.id, current_user.id)

@@ -10,11 +10,11 @@
   
         <!-- Page Content -->
         <div class="container mt-5">
-          <h2 class="text-danger">Mes Transactions</h2>
+            <h1 class="text-center text-danger mb-5">Historique des Transactions</h1>
   
           <!-- Affichage des transactions -->
-          <div class="table-responsive">
-            <table class="table table-bordered">
+          <div class="table-responsive card transaction-card  shadow-sm mb-4">
+            <table class="table table-hover">
               <thead>
                 <tr>
                   <th scope="col">Date</th>
@@ -26,8 +26,8 @@
               </thead>
               <tbody>
                 <tr v-for="transaction in transactions || []" :key="transaction.id">
-                  <td>{{ transaction.transaction_date || 'N/A' }}</td>
-                  <td>{{ transaction.card_name || 'N/A' }}</td>
+                  <td class="date-cell">{{ transaction.transaction_date || 'N/A' }}</td>
+                  <td class="card-name-cell">{{ transaction.card_name || 'N/A' }}</td>
                   <td>{{ transaction.seller_name || 'N/A' }}</td>
                   <td>{{ transaction.amount ? transaction.amount + ' USD' : 'N/A' }}</td>
                   <td>
