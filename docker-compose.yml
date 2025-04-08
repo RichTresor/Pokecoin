@@ -22,7 +22,8 @@ services:
     ports:
       - "8080:8080"
     volumes:
-      - ./pokecoin-frontend
+      - ./pokecoin-frontend:/app
+      # - /app/node_modules
     depends_on:
       - api
 

@@ -6,7 +6,7 @@
 
         <div class="d-flex align-items-center">
           <img
-            :src="'/images/profil.jpeg'"
+            :src="'/images/pokeball.jpg'"
             class="rounded-circle profile-image"
             width="40"
             height="40"
