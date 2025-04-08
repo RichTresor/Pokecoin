@@ -57,7 +57,7 @@
 import { ref, onMounted } from 'vue'
 import { useRouter } from 'vue-router'
 import Navbar from '@/components/AppNavbar.vue'
-import Sidebar from '@/components/AppSidebar.vue'
+import Sidebar from '@/components/AppSideBar.vue'
 import api from '@/services/api'
 
 const user = ref(null)

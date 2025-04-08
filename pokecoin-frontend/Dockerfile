@@ -1,5 +1,5 @@
 # Utiliser l'image officielle de Node.js comme base
-FROM node:16
+FROM node:18
 
 # Définir le répertoire de travail
 WORKDIR /app
@@ -17,4 +17,4 @@ RUN npm run build
 EXPOSE 8080
 
 # Lancer l'application Vue.js
-CMD ["npm", "run", "serve"]
+CMD ["npm", "run", "preview"]
