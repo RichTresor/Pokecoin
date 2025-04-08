@@ -75,7 +75,8 @@
   const showConfirmation = ref(false)  // Afficher ou non la fenêtre de confirmation
   const router = useRouter()
   
-  onMounted(async () => {
+  // Méthode pour charger les cartes
+  const loadCards = async () => {
     const token = localStorage.getItem('token')
     if (!token) {
       router.push('/login')  // Redirige si non connecté
@@ -93,11 +94,15 @@
           'Authorization': `Bearer ${token}`
         }
       })
+      // Récupérer uniquement les cartes disponibles à la vente
       cards.value = response.data.filter(card => card.state === 'à vendre' && card.user_id !== user.value.id)
     } catch (error) {
       console.error(error)
     }
-  })
+  }
+  
+  // Appeler `loadCards` pour charger les cartes dès le montage du composant
+  onMounted(loadCards)
   
   const confirmPurchase = (card) => {
     selectedCard.value = card
@@ -106,26 +111,31 @@
   
   const buyCard = async (card) => {
     try {
-      const token = localStorage.getItem('token')
-      await api.post(`/cards/${card.id}/buy`, {}, {
+        const token = localStorage.getItem('token')
+        await api.post(`/cards/${card.id}/buy`, {}, {
         headers: {
-          'Authorization': `Bearer ${token}`
+            'Authorization': `Bearer ${token}`
         }
-      })
-  
-      // Ferme la fenêtre de confirmation et affiche le message de succès
-      showConfirmation.value = false
-      alert("Achat réussi !")
-  
-      // Actualiser l'affichage des cartes
-      onMounted()
-  
+        })
+
+        // Ferme la fenêtre de confirmation et affiche le message de succès
+        showConfirmation.value = false
+        alert("Achat réussi !")
+
+        // Rafraîchir les cartes après l'achat
+        loadCards()
+
+        // Mettre à jour le solde de l'utilisateur dans localStorage et user.value
+        const updatedUser = { ...user.value, balance: user.value.balance - card.last_price }
+        localStorage.setItem('user', JSON.stringify(updatedUser))
+        user.value = updatedUser  // Mettre à jour le ref `user` avec les nouvelles données
+
     } catch (error) {
-      console.error('Erreur lors de l\'achat de la carte :', error)
-      alert("Une erreur est survenue lors de l'achat.")
+        console.error('Erreur lors de l\'achat de la carte :', error)
+        alert("Une erreur est survenue lors de l'achat.")
     }
-  }
-  </script>
+    }
+    </script>
   
   <style scoped>
   .main-content {

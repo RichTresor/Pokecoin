@@ -14,6 +14,12 @@ Rails.application.routes.draw do
     end
   end
 
+  # Route pour récupérer les informations de l'utilisateur connecté
+  get '/user', to: 'auth#show'
+
+  # Route pour récupérer les transactions de l'utilisateur
+  get '/transactions', to: 'transactions#index'
+
 
 
   # Defines the root path route ("/")
