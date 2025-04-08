@@ -1,14 +1,23 @@
 <template>
-  <div class="sidebar bg-dark text-white p-3">
-    <div class="mb-4 text-center">
+  <div class="sidebar bg-dark text-white d-flex flex-column align-items-center p-4">
+    <!-- Profil utilisateur -->
+    <div class="user-info text-center mb-4">
+    
       <h5 class="mt-2">{{ user?.username }}</h5>
+      <p class="text-muted">Solde : <strong class="text-success">{{ user?.balance }} USD</strong></p>
     </div>
- 
-    <div class="d-flex flex-column">
-      <button class="btn btn-outline-light mb-3" @click="goToMyCards">Voir mes cartes</button>
-      <button class="btn btn-outline-light mb-3" @click="goToPurchases">Faire des achats</button>
-      <button class="btn btn-outline-light mb-3" @click="goToTransactions">Transactions</button>
-      <p class="text-white mt-3">Solde : <strong class="text-success">{{ user?.balance }} USD</strong></p> 
+
+    <!-- Navigation -->
+    <div class="nav-buttons w-100">
+      <button class="btn btn-outline-light w-100 mb-3 d-flex align-items-center" @click="goToMyCards">
+        <i class="bi bi-card-list me-2"></i> Voir mes cartes
+      </button>
+      <button class="btn btn-outline-light w-100 mb-3 d-flex align-items-center" @click="goToPurchases">
+        <i class="bi bi-cart me-2"></i> Faire des achats
+      </button>
+      <button class="btn btn-outline-light w-100 mb-3 d-flex align-items-center" @click="goToTransactions">
+        <i class="bi bi-clock-history me-2"></i> Transactions
+      </button>
     </div>
   </div>
 </template>
@@ -24,12 +33,12 @@ const router = useRouter()
 onMounted(() => {
   const storedUser = localStorage.getItem('user')
   if (storedUser) {
-    user.value = JSON.parse(storedUser)  // Récupérer les informations utilisateur depuis le localStorage
+    user.value = JSON.parse(storedUser) // Récupérer les informations utilisateur depuis le localStorage
   }
 })
 
 const goToMyCards = () => {
-  router.push('/my-cards')  // Redirige vers la page des cartes
+  router.push('/my-cards') // Redirige vers la page des cartes
 }
 
 const goToPurchases = () => {
@@ -37,7 +46,7 @@ const goToPurchases = () => {
 }
 
 const goToTransactions = () => {
-  router.push('/transaction') // Logique pour aller à la page des achats
+  router.push('/transaction') // Logique pour aller à la page des transactions
 }
 </script>
 
@@ -47,15 +56,42 @@ const goToTransactions = () => {
   height: 100vh;
   position: fixed;
   left: 0;
-}
-
-.main-content {
-  margin-left: 250px; /* Espace pour la sidebar */
+  top: 0;
+  background-color: #343a40; /* Couleur de fond sombre */
+  color: #fff;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   padding: 20px;
 }
 
-.sidebar img {
-  object-fit: cover;
-  margin-bottom: 20px;
+.user-info img {
+  border: 2px solid #fff; /* Bordure blanche autour de l'avatar */
+}
+
+.user-info h5 {
+  margin: 0;
+  font-size: 1.2rem;
+}
+
+.user-info p {
+  font-size: 0.9rem;
+}
+
+.nav-buttons button {
+  font-size: 1rem;
+  text-align: left;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+.nav-buttons button i {
+  font-size: 1.2rem;
+}
+
+.nav-buttons button:hover {
+  background-color: #495057; /* Couleur de survol */
+  color: #fff;
 }
 </style>
