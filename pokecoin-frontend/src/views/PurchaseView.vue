@@ -10,7 +10,7 @@
   
         <!-- Page Content -->
         <div class="container mt-5">
-          <h2 class="text-danger">Faire des achats</h2>
+          <h1 class="text-center text-danger mb-5">Faire des achats</h1>
   
           <!-- Affichage des cartes -->
           <div class="row row-cols-1 row-cols-md-3 g-4">
@@ -146,5 +146,13 @@
   .modal {
     display: block;
   }
+  .card-img-top {
+  max-width: 200px;  /* Limite la largeur maximale de l'image */
+  max-height: 300px; /* Limite la hauteur maximale de l'image */
+}
+.card-top {
+  max-width: 200px;  /* Limite la largeur maximale de l'image */
+  max-height: 600px; /* Limite la hauteur maximale de l'image */
+}
   </style>
   

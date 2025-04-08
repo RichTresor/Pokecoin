@@ -10,7 +10,7 @@
   
         <!-- Page Content -->
         <div class="container mt-5">
-          <h2 class="text-danger">Toutes mes cartes Pokémon 🃏</h2>
+          <h1 class="text-center text-danger mb-5">Toutes mes cartes Pokémon 🃏</h1>
   
           <!-- Affichage des cartes -->
           <div class="row row-cols-1 row-cols-md-3 g-4">
@@ -21,15 +21,15 @@
                 </div>
   
                 <div class="card-body">
-                  <h5 class="card-title text-dark">{{ card.name }}</h5>
-                  <p class="card-text text-muted">Rareté : <span class="text-primary">{{ card.rarity }}</span></p>
-                  <p class="card-text">Dernier prix : {{ card.last_price }} USD</p>
+                  <h5 class="card-title text-dark text-center">{{ card.name }}</h5>
+                  <p class="card-text text-muted text-center">Rareté : <span class="text-primary">{{ card.rarity }}</span></p>
+                  <p class="card-text text-center">Dernier prix : <strong class="text-success">{{ card.last_price }} USD</strong></p>
   
                   <!-- Affichage et gestion du bouton "Vendre" / "Annuler la vente" -->
-                  <div v-if="card.state === 'non à vendre'">
+                  <div class="d-flex justify-content-center" v-if="card.state === 'non à vendre' ">
                     <button class="btn btn-warning" @click="changeCardState(card, 'à vendre')">Vendre</button>
                   </div>
-                  <div v-else-if="card.state === 'à vendre'">
+                  <div class="d-flex justify-content-center" v-else-if="card.state === 'à vendre'">
                     <button class="btn btn-danger" @click="changeCardState(card, 'non à vendre')">Annuler la vente</button>
                   </div>
                 </div>

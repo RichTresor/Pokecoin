@@ -10,8 +10,8 @@
   
         <!-- Page Content -->
         <div class="container mt-5">
-          <h2 class="text-danger">Bienvenue, {{ user?.username }} 🪙</h2>
-          <p class="text-muted">Gérez vos cartes et achats Pokémon ici !</p>
+          <h1 class="text-center text-danger mb-5">Bienvenue, {{ user?.username }} </h1>
+          <p class="text-muted text-center">Gérez vos cartes et achats Pokémon ici !</p>
   
           <!-- Aperçu des cartes -->
           <div class="mt-5">
