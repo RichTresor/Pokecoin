@@ -15,7 +15,7 @@
           <!-- Affichage des cartes -->
           <div class="row row-cols-1 row-cols-md-3 g-4">
             <div v-for="card in cards" :key="card.id" class="col">
-              <div class="card h-100 shadow-sm">
+              <div class="card-top h-100 shadow-sm">
                 <div class="card-img-wrapper mb-3 overflow-hidden rounded-3">
                   <img :src="'/images/' + card.image_url" class="card-img-top img-fluid" alt="Image de la carte" />
                 </div>
@@ -114,5 +114,13 @@
     margin-left: 250px; /* Espace pour la sidebar */
     padding: 20px;
   }
+  .card-img-top {
+  max-width: 200px;  /* Limite la largeur maximale de l'image */
+  max-height: 300px; /* Limite la hauteur maximale de l'image */
+}
+.card-top {
+  max-width: 200px;  /* Limite la largeur maximale de l'image */
+  max-height: 600px; /* Limite la hauteur maximale de l'image */
+}
   </style>
   

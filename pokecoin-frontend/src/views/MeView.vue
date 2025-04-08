@@ -20,7 +20,7 @@
             <!-- Liste des cartes (afficher les 3 premières) -->
             <div class="row row-cols-1 row-cols-md-3 g-4">
               <div v-for="card in userCards.slice(0, 3)" :key="card.id" class="col">
-                <div class="card shadow-sm">
+                <div class="card-top shadow-sm">
                   <img :src="'/images/' + card.image_url" class="card-img-top" alt="Image de la carte" />
                   <div class="card-body">
                     <h5 class="card-title">{{ card.name }}</h5>
@@ -87,5 +87,13 @@
     margin-left: 250px;
     padding: 20px;
   }
+  .card-img-top {
+  max-width: 200px;  /* Limite la largeur maximale de l'image */
+  max-height: 300px; /* Limite la hauteur maximale de l'image */
+}
+.card-top {
+  max-width: 200px;  /* Limite la largeur maximale de l'image */
+  max-height: 600px; /* Limite la hauteur maximale de l'image */
+}
   </style>
   

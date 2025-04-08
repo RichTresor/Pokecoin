@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_04_07_213416) do
+ActiveRecord::Schema[8.0].define(version: 2025_04_07_234548) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -19,11 +19,24 @@ ActiveRecord::Schema[8.0].define(version: 2025_04_07_213416) do
     t.string "rarity"
     t.string "image_url"
     t.decimal "last_price"
-    t.bigint "user_id", null: false
+    t.bigint "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "state", default: "non à vendre"
     t.index ["user_id"], name: "index_cards_on_user_id"
+  end
+
+  create_table "transactions", force: :cascade do |t|
+    t.integer "buyer_id"
+    t.integer "seller_id"
+    t.integer "card_id"
+    t.decimal "amount", precision: 10, scale: 2
+    t.datetime "transaction_date", default: -> { "CURRENT_TIMESTAMP" }
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["buyer_id"], name: "index_transactions_on_buyer_id"
+    t.index ["card_id"], name: "index_transactions_on_card_id"
+    t.index ["seller_id"], name: "index_transactions_on_seller_id"
   end
 
   create_table "users", force: :cascade do |t|
