@@ -1,23 +1,16 @@
-# Utiliser l'image officielle de Node.js comme base
-FROM node:18
-
-# Définir le répertoire de travail
+# ----- builder -----
+FROM node:18-alpine AS builder
 WORKDIR /app
-
-# Copier uniquement les fichiers nécessaires pour installer les dépendances
+# copy package files first for caching
 COPY package*.json ./
-
-# Installer les dépendances
-RUN npm install
-
-# Copier le reste des fichiers du projet
+# if using pnpm/yarn, adjust accordingly
+RUN npm ci
 COPY . .
-
-# Construire l'application Vue.js
 RUN npm run build
 
-# Exposer le port pour Vue.js
-EXPOSE 8080
-
-# Lancer l'application Vue.js
-CMD ["npm", "run", "preview"]
+FROM nginx:stable-alpine AS runner
+# remove default nginx html and copy built files
+RUN rm -rf /usr/share/nginx/html/*
+COPY --from=builder /app/dist /usr/share/nginx/html
+EXPOSE 80
+CMD ["nginx", "-g", "daemon off;"]

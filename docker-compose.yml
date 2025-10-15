@@ -1,4 +1,3 @@
-
 services:
   # Backend Rails
   api:
@@ -6,24 +5,22 @@ services:
       context: ./  # Répertoire principal "Pokecoin" (où se trouve le backend)
     command: bash -c "rm -f tmp/pids/server.pid && bundle exec rails s -b '0.0.0.0'"
     volumes:
-      - /d/GitHub/Pokecoin:/app  # Le répertoire "pokecoin-api" contient le backend Rails
+      - ./:/app  # use project root (relative) instead of absolute Windows path
     ports:
       - "3000:3000"
     depends_on:
       - db
     environment:
-      - DATABASE_URL=postgres://postgres:password@db:5432/pokecoin_api_development
+      - DATABASE_URL=postgres://postgres:password@db:5435/pokecoin_api_development
       - RAILS_ENV=production
       - SECRET_KEY_BASE=98977295e303834ee0598b52326f8d0db2f12ed14e17eacd92f820e32262640382b4169cec3345e7d15e8149bd54f51d568799e03998327c089fecd80786881a
   # Frontend Vue.js
   frontend:
     build:
-      context: ./pokecoin-frontend  # Répertoire "pokecoin-frontend" pour le frontend Vue.js
+      context: ./pokecoin-frontend
     ports:
-      - "8080:8080"
-    volumes:
-      - d:/GitHub/Pokecoin/pokecoin-frontend:/app
-      # - /app/node_modules
+      - "8080:80"
+    # no runtime npm; image builds the app and nginx serves /dist
     depends_on:
       - api
 
