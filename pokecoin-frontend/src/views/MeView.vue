@@ -25,7 +25,7 @@
                   class="card-img-wrapper mb-3 overflow-hidden rounded-3 d-flex justify-content-center align-items-center"
                   @click="openModal(card.image_url)"
                 >
-                  <img :src="'/images/' + card.image_url" class="card-img-top img-fluid mt-3" alt="Image de la carte" />
+                  <img :src="resolveImage(card.image_url)" class="card-img-top img-fluid mt-3" alt="Image de la carte" />
                 </div>
                 <div class="card-body">
                   <h5 class="card-title text-center">{{ card.name }}</h5>
@@ -48,7 +48,7 @@
   <!-- Modale pour afficher l'image en grand -->
   <div v-if="isModalOpen" class="modal-overlay" @click="closeModal">
     <div class="modal-content">
-      <img :src="'/images/' + selectedImage" alt="Image agrandie" class="modal-image" />
+  <img :src="resolveImage(selectedImage)" alt="Image agrandie" class="modal-image" />
     </div>
   </div>
 </template>
@@ -65,6 +65,13 @@ const userCards = ref([]) // Pour stocker les cartes de l'utilisateur
 const isModalOpen = ref(false) // État de la modale
 const selectedImage = ref(null) // Image sélectionnée pour la modale
 const router = useRouter()
+
+// Utilitaires pour résoudre l'URL de l'image (absolute HTTPS ou image locale du dossier /public/images)
+const isAbsoluteUrl = (u) => /^https?:\/\//i.test(u || '')
+const resolveImage = (u) => {
+  if (!u) return ''
+  return isAbsoluteUrl(u) ? u : `/images/${u}`
+}
 
 // Ouvrir la modale avec l'image sélectionnée
 const openModal = (imageUrl) => {
